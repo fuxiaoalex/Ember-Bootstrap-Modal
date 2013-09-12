@@ -11,4 +11,5 @@ Libraries:
 
 Acknowledgements
 =====================
-<a href="https://github.com/photusenigma">photusenigma </a>
+* Thanks for <a href="https://github.com/photusenigma">photusenigma</a>'s help
+* Inspired by <a href="https://github.com/nerdyworm/ember-examples-modals">NerdyWorm</a>
