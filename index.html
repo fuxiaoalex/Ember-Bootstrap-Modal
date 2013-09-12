@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ember.js • Modal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="js/libs/bootstrap/css/bootstrap.min.css">
+  </head>
+  <body>
+    <script type="text/x-handlebars" data-template-name="todos">
+      <section id="todoapp">
+        <header id="header">
+          <h1>todos</h1>
+          {{input type="text" id="new-todo" placeholder="What needs to be done?" value=newTitle action="createTodo"}}
+        </header>
+
+        <section id="main">
+          {{outlet}}
+          {{input type="checkbox" id="toggle-all" checked=allAreDone}}  
+        </section>
+
+        <footer id="footer">
+          <span id="todo-count">
+            <strong>{{remaining}}</strong> {{inflection}} left
+          </span>
+          <ul id="filters">
+            <li>
+              {{#link-to "todos.index" activeClass="selected"}}All{{/link-to}}
+            </li>
+            <li>
+              {{#link-to "todos.active" activeClass="selected"}}Active{{/link-to}}
+            </li>
+            <li>
+              {{#link-to "todos.completed" activeClass="selected"}}Completed{{/link-to}}
+            </li>
+          </ul>
+
+          {{#if hasCompleted}}
+            <button id="clear-completed" {{action "clearCompleted"}}>
+              Clear completed ({{completed}})
+            </button>
+          {{/if}}
+
+        </footer>
+      </section>
+
+      {{outlet modal}}
+
+      <footer id="info">
+        <p>Double-click to edit a todo</p>
+      </footer>
+    </script>
+
+
+    <script type="text/x-handlebars" data-template-name="todos/index">
+            <ul id="todo-list">
+              {{#each itemController="todo"}}
+                <li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
+                    {{input type="checkbox" checked=isCompleted class="toggle"}}
+                    <label {{action editTodo this on="click"}}>{{title}}</label>
+                    <button {{action "removeTodo"}} class="destroy"></button>
+                </li>
+              {{/each}}
+            </ul>
+    </script>
+
+
+
+    <script type="text/x-handlebars" data-template-name="TodosModal">
+      <div class="modal">
+          <div class="modal-header">
+            Editing Todo
+            <button type="button" class="close" {{action "close"}}>&times;</button>
+          </div>
+          <div class="modal-body">
+              {{#if isShowingMsg}}
+                  <p style="color: red">Successfully saved</p>
+              {{/if}}
+                  {{input type="text" value=model.title}}
+          </div>
+          <div class="modal-footer">
+              <a class="btn" {{action "close"}}>Close</a>
+              <a class="btn btn-primary" {{action "save"}}>Save changes</a>
+          </div>
+        </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="empty">
+    </script>
+
+
+    <script src="js/libs/jquery-1.9.1.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember-1.0.0.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/models/todo.js"></script>
+    <script src="js/controllers/todos_controller.js"></script>
+    <script src="js/controllers/todo_controller.js"></script>
+    <script src="js/controllers/todosModal_controller.js"></script>
+    <script src="js/views/modal_view.js"></script>
+    <script src="js/libs/bootstrap/js/bootstrap.min.js"></script>
+
+  </body>
+</html>
